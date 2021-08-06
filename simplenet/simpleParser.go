@@ -3,15 +3,15 @@ package simplenet
 import (
 	"bufio"
 	"errors"
+	"http-server-scratch/simplenet/simpleTextProto"
 	"io"
-	"net/textproto"
 	"strconv"
 	"strings"
 )
 
 type request struct {
 	method string // GET, POST, etc.
-	header textproto.MIMEHeader
+	header simpleTextProto.MIMEHeader
 	body   []byte
 	uri    string // The raw URI from the request
 	proto  string // "HTTP/1.1"
@@ -19,17 +19,17 @@ type request struct {
 
 func ParseRequest(c *netSocket) (*request, error) {
 	b := bufio.NewReader(*c)
-	tp := textproto.NewReader(b)
+	tp := simpleTextProto.NewReader(b) // need replace
 	req := new(request)
 
 	// First line: parse "GET /index.html HTTP/1.0"
 	var s string
-	s, _ = tp.ReadLine()
+	s, _ = tp.ReadLine() // need replace
 	sp := strings.Split(s, " ")
 	req.method, req.uri, req.proto = sp[0], sp[1], sp[2]
 
 	// Parse headers
-	mimeHeader, _ := tp.ReadMIMEHeader()
+	mimeHeader, _ := tp.ReadMIMEHeader() // need replace
 	req.header = mimeHeader
 
 	// Parse body
