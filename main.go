@@ -14,7 +14,6 @@ package main
 import (
 	"flag"
 	"http-server-scratch/simplenet"
-	"io"
 	"log"
 )
 
@@ -57,7 +56,7 @@ func main() {
 
 		// Write response
 		log.Print("Writing response")
-		io.WriteString(rw, "HTTP/1.1 200 OK\r\n"+
+		simplenet.WriteString(rw, "HTTP/1.1 200 OK\r\n"+
 			"Content-Type: text/html; charset=utf-8\r\n"+
 			"Content-Length: 20\r\n"+
 			"\r\n"+
